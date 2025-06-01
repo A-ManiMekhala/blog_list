@@ -16,9 +16,10 @@ function App() {
       <main className="blog-list">
         {blogPosts.map((post) => (
           <article key={post.id} className="blog-item">
-            <h2>{post.title}</h2>
+            <p>By {post.author}</p>
+            <small>Published on {formatDate(post.date)}</small>
+            <h3>{post.title}</h3>
             <p>{post.summary}</p>
-            <small>{formatDate(post.date)}</small>
           </article>
         ))}
       </main>

@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
-import styles from "./BlogPostDetail.module.css";
+// import styles from "./BlogPostDetail.module.css";
+import styles from "./App";
 
 const BlogPostDetail = ({ title, content, author, date }) => {
   if (!title || !content || !author || !date) {

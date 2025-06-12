@@ -73,11 +73,78 @@
 
 // export default App;
 
+// import React, { useState } from "react";
+// import { Routes, Route, Link } from "react-router-dom";
+// import BlogDetailPage from "./BlogDetailPage";
+// import BlogForm from "./BlogForm";
+// import blogPostsData from "./blogPosts";
+// import "./App.css";
+
+// function App() {
+//   const [posts, setPosts] = useState(blogPostsData);
+
+//   const handleSavePost = (post, isEditing) => {
+//     if (isEditing) {
+//       setPosts(posts.map((p) => (p.id === post.id ? post : p)));
+//     } else {
+//       setPosts([...posts, post]);
+//     }
+//   };
+
+//   const handleDeletePost = (id) => {
+//     setPosts(posts.filter((p) => p.id !== id));
+//   };
+
+//   return (
+//     <div className="App">
+//       <header className="App-header">
+//         <h1>Blog Posts</h1>
+//         <Link to="/create">Create New Post</Link>
+//       </header>
+
+//       <Routes>
+//         <Route
+//           path="/"
+//           element={
+//             <main className="blog-list">
+//               {posts.map((post) => (
+//                 <article key={post.id} className="blog-item">
+//                   <p>By {post.author}</p>
+//                   <small>
+//                     Published on {new Date(post.date).toLocaleDateString()}
+//                   </small>
+//                   <h3>
+//                     <Link to={`/post/${post.id}`}>{post.title}</Link>
+//                   </h3>
+//                   <p>{post.summary}</p>
+//                   <Link to={`/edit/${post.id}`}>Edit</Link>
+//                 </article>
+//               ))}
+//             </main>
+//           }
+//         />
+//         <Route path="/post/:id" element={<BlogDetailPage />} />
+//         <Route path="/create" element={<BlogForm onSave={handleSavePost} />} />
+//         <Route
+//           path="/edit/:id"
+//           element={<BlogForm isEditing onSave={handleSavePost} />}
+//         />
+//         <Route
+//           path="/post/:id"
+//           element={<BlogDetailPage posts={posts} onDelete={handleDeletePost} />}
+//         />
+//       </Routes>
+//     </div>
+//   );
+// }
+
+// export default App;
+
 import React, { useState } from "react";
 import { Routes, Route, Link } from "react-router-dom";
+import blogPostsData from "./blogPosts";
 import BlogDetailPage from "./BlogDetailPage";
 import BlogForm from "./BlogForm";
-import blogPostsData from "./blogPosts";
 import "./App.css";
 
 function App() {
@@ -91,11 +158,17 @@ function App() {
     }
   };
 
+  const handleDeletePost = (id) => {
+    setPosts(posts.filter((p) => p.id !== id));
+  };
+
   return (
     <div className="App">
       <header className="App-header">
         <h1>Blog Posts</h1>
-        <Link to="/create">Create New Post</Link>
+        <Link to="/create">
+          <button className="create-btn">Create New Post</button>
+        </Link>
       </header>
 
       <Routes>
@@ -113,17 +186,19 @@ function App() {
                     <Link to={`/post/${post.id}`}>{post.title}</Link>
                   </h3>
                   <p>{post.summary}</p>
-                  <Link to={`/edit/${post.id}`}>Edit</Link>
                 </article>
               ))}
             </main>
           }
         />
-        <Route path="/post/:id" element={<BlogDetailPage />} />
         <Route path="/create" element={<BlogForm onSave={handleSavePost} />} />
         <Route
           path="/edit/:id"
-          element={<BlogForm isEditing onSave={handleSavePost} />}
+          element={<BlogForm onSave={handleSavePost} isEditing />}
+        />
+        <Route
+          path="/post/:id"
+          element={<BlogDetailPage posts={posts} onDelete={handleDeletePost} />}
         />
       </Routes>
     </div>

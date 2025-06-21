@@ -166,6 +166,11 @@ function App() {
     <div className="App">
       <header className="App-header">
         <h1>Blog Posts</h1>
+
+        <Link to="/">
+          <button className="home-btn">Home</button>
+        </Link>
+
         <Link to="/create">
           <button className="create-btn">Create New Post</button>
         </Link>
@@ -201,6 +206,8 @@ function App() {
           element={<BlogDetailPage posts={posts} onDelete={handleDeletePost} />}
         />
       </Routes>
+
+      <footer className="footer">© 2025 Blog App. All rights reserved.</footer>
     </div>
   );
 }
